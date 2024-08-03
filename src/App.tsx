@@ -4,7 +4,7 @@ import ArticleList from "./components/ArticleList";
 import Search from "./components/Search";
 import Bookmarks from "./components/Bookmarks";
 import { useAppContext } from "./context/appContext";
-import { defaultNews } from "./values";
+// import { defaultNews } from "./values";
 
 function App() {
   const [news, setNews] = useState<INews>(null!);
@@ -16,24 +16,24 @@ function App() {
   const { setBookmarks } = useAppContext();
 
   useEffect(() => {
-    // const getNews = async () => {
-    //   try {
-    //     const data = await fetch(
-    //       `https://newsapi.org/v2/top-headlines?q=${search}&country=ua&apiKey=${
-    //         import.meta.env.VITE_API_KEY
-    //       }`
-    //     );
-    //     const newsData = await data.json();
-    //     setNews(newsData);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    //   setIsLoading(false);
-    // };
-    // getNews();
+    const getNews = async () => {
+      try {
+        const data = await fetch(
+          `https://newsapi.org/v2/top-headlines?q=${search}&country=ua&apiKey=${
+            import.meta.env.VITE_API_KEY
+          }`
+        );
+        const newsData = await data.json();
+        setNews(newsData);
+      } catch (error) {
+        console.log(error);
+      }
+      setIsLoading(false);
+    };
+    getNews();
 
-    setNews(defaultNews);
-    setIsLoading(false);
+    // setNews(defaultNews);
+    // setIsLoading(false);
 
     const bookmarksString = localStorage.getItem("bookmarks");
     if (bookmarksString) {
